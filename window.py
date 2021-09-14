@@ -1,0 +1,74 @@
+import gi
+
+gi.require_version("Gtk", "3.0")
+from gi.repository import Gtk
+
+MARGIN = 15
+
+class GridWindow(Gtk.Window):
+    def getEmptySquare(self, border=False):
+
+        if border:
+            empty_square = Gtk.Frame()
+        else:
+            empty_square = Gtk.Box()
+        empty_square.set_hexpand(True)
+        empty_square.set_vexpand(True)
+        return empty_square
+
+    def __init__(self):
+
+        super().__init__(title="Sound Blaster Z Switcher")
+
+        self.grid = Gtk.Grid()
+        self.grid.set_row_homogeneous(False)
+        self.grid.set_column_homogeneous(False)
+        # self.grid.set_hexpand(True)
+
+        self.grid.attach(self.getEmptySquare(True), 0, 0, 3, 1)
+
+        # Headset volume bar
+        headset_label = Gtk.Label("Headset volume")
+        headset_label.set_margin_left(MARGIN)
+        headset_label.set_margin_right(MARGIN)
+        self.grid.attach(headset_label, 0, 1, 1, 1)
+
+        headset_volume = Gtk.Scale().new_with_range(Gtk.Orientation.HORIZONTAL, 0, 100, 1.0)
+        headset_volume.set_draw_value(False)
+        headset_volume.set_hexpand(True)
+        headset_volume.set_margin_right(MARGIN)
+        self.grid.attach_next_to(headset_volume, headset_label, Gtk.PositionType.RIGHT, 1, 1)
+
+        self.grid.attach_next_to(self.getEmptySquare(True), headset_volume, Gtk.PositionType.RIGHT, 1, 1)
+
+
+        # Speakers volume bar
+        speakers_label = Gtk.Label("Speakers volume")
+        speakers_label.set_margin_left(MARGIN)
+        speakers_label.set_margin_right(MARGIN)
+        self.grid.attach(speakers_label, 0, 2, 1, 1)
+
+        speakers_volume = Gtk.Scale().new_with_range(Gtk.Orientation.HORIZONTAL, 0, 100, 1.0)
+        speakers_volume.set_draw_value(False)
+        speakers_volume.set_hexpand(True)
+        speakers_volume.set_margin_right(MARGIN)
+        self.grid.attach_next_to(speakers_volume, speakers_label, Gtk.PositionType.RIGHT, 1, 1)
+
+        self.grid.attach_next_to(self.getEmptySquare(True), speakers_volume, Gtk.PositionType.RIGHT, 1, 1)
+
+
+
+
+        self.add(self.grid)
+
+        self.set_default_size(700, 600)
+
+
+def create_window():
+    win = GridWindow()
+    win.connect("destroy", Gtk.main_quit)
+    win.show_all()
+    Gtk.main()
+
+
+

@@ -1,8 +1,9 @@
 import window
 import configManager
 
+
 def main():
-    configManager.load_config()
+    configManager.check_config_file()
     window.create_window()
 
 

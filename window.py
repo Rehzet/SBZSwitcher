@@ -37,7 +37,8 @@ class GridWindow(Gtk.Window):
 
         headset_volume = Gtk.Scale().new_with_range(Gtk.Orientation.HORIZONTAL, 0, 100, 1.0)
         headset_volume.set_value(sbz_data.get_headphones_volume())
-        headset_volume.set_draw_value(False)
+        headset_volume.set_draw_value(True)
+        headset_volume.set_value_pos(1)
         headset_volume.set_hexpand(True)
         headset_volume.set_margin_right(MARGIN)
         headset_volume.connect("value-changed", self.on_headphones_volume_value_changed)
@@ -54,7 +55,8 @@ class GridWindow(Gtk.Window):
 
         speakers_volume = Gtk.Scale().new_with_range(Gtk.Orientation.HORIZONTAL, 0, 100, 1.0)
         speakers_volume.set_value(sbz_data.get_speakers_volume())
-        speakers_volume.set_draw_value(False)
+        speakers_volume.set_draw_value(True)
+        speakers_volume.set_value_pos(1)
         speakers_volume.set_hexpand(True)
         speakers_volume.set_margin_right(MARGIN)
         speakers_volume.connect("value-changed", self.on_speakers_volume_value_changed)
